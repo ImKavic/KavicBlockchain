@@ -1,6 +1,37 @@
-@Kavic_Blockchain_HostAddress = http://localhost:5130
+@host = http://localhost:5130
 
-GET {{Kavic_Blockchain_HostAddress}}/weatherforecast/
-Accept: application/json
+### Get
+GET {{host}}/api/blocks/chain
 
-###
+### Add 1
+POST {{host}}/api/blocks/block
+Content-Type: application/json
+
+{
+  "transactions": [
+    {
+      "from": "Fikri",
+      "to": "Binance",
+      "amount": 1000000
+    },
+    {
+      "from": "Avishena",
+      "to": "Binance",
+      "amount": 20000000
+    }
+  ]
+}
+
+### Add 2
+POST {{host}}/api/blocks/block
+Content-Type: application/json
+
+{
+  "transactions": [
+    {
+      "from": "Kavic",
+      "to": "Binance",
+      "amount": 30000000
+    }
+  ]
+}

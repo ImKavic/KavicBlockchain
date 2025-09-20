@@ -1,13 +1,32 @@
+using KavicBlockchain.Data.Blocks;
+using KavicBlockchain.Features.Blocks;
+using KavicBlockchain.Repositories.Blocks;
+using KavicBlockchain.Services.Blocks.Services;
+using KavicBlockchain; 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddAllDbContexts(builder.Configuration, "DefaultConnection");
+
+builder.Services.AddScoped<IBlockchainRepository, BlockchainRepository>();
+builder.Services.AddScoped<IBlockchainService, BlockchainService>();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+try
+{
+    app.Services.ApplyMigrations<BlockchainContext>();
+}
+catch (Exception ex)
+{
+    var logger = app.Services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(ex, "An error occurred while migrating the database.");
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -16,29 +35,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+app.MapEndpoints();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
