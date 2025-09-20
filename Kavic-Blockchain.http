@@ -1,0 +1,6 @@
+@Kavic_Blockchain_HostAddress = http://localhost:5130
+
+GET {{Kavic_Blockchain_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
