@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Kavic_Blockchain.Migrations
+namespace KavicBlockchain.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

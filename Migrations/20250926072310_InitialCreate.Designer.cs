@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Kavic_Blockchain.Migrations
+namespace KavicBlockchain.Migrations
 {
     [DbContext(typeof(BlockchainContext))]
-    [Migration("20250920184443_InitialCreate")]
+    [Migration("20250926072310_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

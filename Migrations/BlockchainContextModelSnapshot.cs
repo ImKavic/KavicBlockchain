@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Kavic_Blockchain.Migrations
+namespace KavicBlockchain.Migrations
 {
     [DbContext(typeof(BlockchainContext))]
     partial class BlockchainContextModelSnapshot : ModelSnapshot
